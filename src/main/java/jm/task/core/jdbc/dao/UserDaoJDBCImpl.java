@@ -11,11 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    Util connector = new Util();
+    private Util connector = new Util();
     public UserDaoJDBCImpl() {
 
     }
 
+    @Override
     public void createUsersTable() {
         try (Statement statement = connector.getConnection().createStatement()) {
             statement.executeUpdate("CREATE TABLE Users (Id INT AUTO_INCREMENT PRIMARY KEY, Name NVARCHAR(20), " +
@@ -25,6 +26,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
     public void dropUsersTable() {
         try (Statement statement = connector.getConnection().createStatement()) {
             statement.executeUpdate("DROP TABLE Users");
@@ -33,6 +35,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
     public void saveUser(String name, String lastName, byte age) {
         try (Statement statement = connector.getConnection().createStatement()) {
             statement.executeUpdate("INSERT INTO Users (Name, LastName, Age) " +
@@ -42,6 +45,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
     public void removeUserById(long id) {
         try (Statement statement = connector.getConnection().createStatement()) {
             statement.executeUpdate("DELETE FROM Users WHERE Id = " + id);
@@ -50,6 +54,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
     public List<User> getAllUsers() {
         List<User> listUsers = new ArrayList<>();
         try (Statement statement = connector.getConnection().createStatement()) {
@@ -66,6 +71,7 @@ public class UserDaoJDBCImpl implements UserDao {
         return listUsers;
     }
 
+    @Override
     public void cleanUsersTable() {
         try (Statement statement = connector.getConnection().createStatement()) {
             statement.executeUpdate("TRUNCATE Users");

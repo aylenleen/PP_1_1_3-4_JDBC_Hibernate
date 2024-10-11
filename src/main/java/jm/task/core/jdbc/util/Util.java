@@ -10,9 +10,13 @@ public class Util {
     private final String USERNAME = "root";
     private final String PASSWORD = "kiviui12";
 
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() {
         if (connection == null) {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            try {
+                connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return connection;
     }
