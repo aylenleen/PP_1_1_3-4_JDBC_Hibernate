@@ -28,8 +28,10 @@ public class UserDaoHibernateImpl implements UserDao {
             Query query = session.createSQLQuery(sql).addEntity(User.class);
             query.executeUpdate();
             transaction.commit();
-        } catch(Exception e){
-
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
         }
     }
 
@@ -37,11 +39,13 @@ public class UserDaoHibernateImpl implements UserDao {
     public void dropUsersTable() {
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-            sql = "DROP TABLE Users";
+            sql = "DROP TABLE IF EXISTS Users";
             session.createSQLQuery(sql).executeUpdate();
             transaction.commit();
         } catch (Exception e) {
-
+            if (transaction != null) {
+                transaction.rollback();
+            }
         }
     }
 

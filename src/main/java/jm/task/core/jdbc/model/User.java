@@ -4,20 +4,20 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table (name = "Users")
+@Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "Id")
+    @Column(name = "Id")
     private Long id;
 
-    @Column (name = "Name")
+    @Column(name = "Name")
     private String name;
 
-    @Column (name = "LastName")
+    @Column(name = "LastName")
     private String lastName;
 
-    @Column (name = "Age")
+    @Column(name = "Age")
     private Byte age;
 
     public User() {
